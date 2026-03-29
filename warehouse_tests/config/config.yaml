@@ -1,6 +1,0 @@
-base_url: "http://localhost:8080/api"
-timeout: 5
-retry:
-  total: 3
-  backoff_factor: 1
-  status_forcelist: [500, 502, 503, 504]

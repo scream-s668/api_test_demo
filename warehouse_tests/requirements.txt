@@ -1,5 +1,0 @@
-requests
-pytest
-pytest-html
-pyyaml
-pyodbc
