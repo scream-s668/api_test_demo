@@ -1,0 +1,70 @@
+# data/stock_data.yaml
+stock_in_cases:
+  - description: "正常入库"
+    stockId: "STK001"
+    operateNum: 10
+    remark: "测试入库"
+    expected_msg: "操作成功"
+    expected_code: 200
+
+  - description: "入库数量为0"
+    stockId: "STK001"
+    operateNum: 0
+    remark: ""
+    expected_msg: "入库失败（库存超容或库存不存在）"
+    expected_code: 500
+
+  - description: "不存在的库存编号"
+    stockId: "INVALID_ID"
+    operateNum: 5
+    remark: ""
+    expected_msg: "入库失败（库存超容或库存不存在）"
+    expected_code: 500
+    #参数缺失
+  - description: "缺少 stockId"
+    operateNum: 10
+    expected_http_status: 400
+
+  - description: "缺少 operateNum"
+    stockId: "STK001"
+    expected_http_status: 400
+
+  # 非法值
+  - description: "operateNum 为负数"
+    stockId: "STK001"
+    operateNum: -5
+    expected_code: 500
+    expected_msg: "入库失败（库存超容或库存不存在）"
+
+  - description: "operateNum 为字符串（类型错误）"
+    stockId: "STK001"
+    operateNum: "abc"
+    expected_http_status: 400
+
+  - description: "stockId 过长（边界值）"
+    stockId: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'   # 假设长度限制50
+    operateNum: 10
+    expected_code: 500
+    expected_msg: "入库失败（库存超容或库存不存在）"
+
+stock_out_cases:
+  - description: "正常出库"
+    stockId: "STK001"
+    operateNum: 5
+    remark: "测试出库"
+    expected_msg: "操作成功"
+    expected_code: 200
+
+  - description: "出库数量超过库存"
+    stockId: "STK001"
+    operateNum: 2000
+    remark: ""
+    expected_msg: "出库失败（出库数量超过当前库存或库存不存在）"
+    expected_code: 500
+
+  - description: "出库数量为0"
+    stockId: "STK001"
+    operateNum: 0
+    remark: ""
+    expected_msg: "出库失败（出库数量超过当前库存或库存不存在）"
+    expected_code: 500
