@@ -23,11 +23,11 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r config/req.txt   # 如果你的依赖文件名是 req.txt，按实际路径修改
+        pip install -r config/req.txt   # 依赖文件名，按实际路径修改
 #运行测试
     - name: Run tests
       run: |
-        cd config   # 进入测试文件所在目录（因为你的测试文件在 config 子目录下）
+        cd config   # 进入测试文件所在目录
         pytest -v --html=report.html --self-contained-html
 #上传报告
     - name: Upload test report
